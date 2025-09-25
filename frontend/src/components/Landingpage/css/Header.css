@@ -1,0 +1,143 @@
+.header-section {
+  background-color: #ffffff; /* White background for the entire header */
+  padding: 20px 50px; /* Padding for the navbar */
+  color: #000;
+  position: relative;
+  overflow: hidden;
+  /* padding-bottom will be handled by hero-main-area now */
+}
+
+.landing-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0; /* No margin here, let hero-main-area control vertical space */
+  position: relative;
+  z-index: 20; 
+ /* Ensure navbar is always on top */
+}
+
+.logo {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.nav-links a {
+  margin-right: 20px;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5em
+}
+
+.login-btn {
+ position: relative;
+    display: inline-block;
+    margin: 15px;
+    padding: 5px 35px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #000000;
+    background: transparent;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #000000;
+}
+.login-btn:hover{
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #000000;
+}
+.login-btn:active{
+  transform: scale(0.9);
+}
+
+/* NEW CONTAINER for the hero section's content and background */
+.hero-main-area {
+  position: relative; /* Establish context for absolute positioning */
+  width: 100%;
+  height: 600px; /* Adjust height as needed for your hero section */
+  display: flex; /* Use flex to align text within its available space */
+  align-items: center; /* Vertically center the text */
+  padding-left: 50px; /* Align text with navbar content */
+  padding-bottom: 50px; /* Added for visual spacing */
+}
+
+.hero-text {
+  position: relative; /* Ensure text is on top of the image */
+  z-index: 15; /* Higher than image and its background */
+  flex: 0 0 50%; /* Take up 50% width, don't grow or shrink */
+  max-width: 50%; /* Explicitly set max-width */
+  text-align: left; /* Align text left */
+  padding-right: 20px; /* Space between text and image */
+}
+
+.hero-text h1 {
+  font-size: 4.5em;
+  margin-bottom: 20px;
+  line-height: 1.1; /* Adjust line height for better appearance */
+}
+
+.hero-text p {
+  font-size: 1.5em;
+  line-height: 1.5;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #4f4f4f;
+}
+
+.hero-buttons .btn-primary {
+  background-color: #000;
+  color: #fff;
+  margin-right: 15px;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-size: large;
+}
+
+.hero-buttons .btn-secondary {
+  background-color: #fff;
+  color: #000;
+  border: 4px solid #ffc107;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-size: large;
+}
+
+/* YELLOW OVAL BACKGROUND for the image */
+.hero-image-background {
+  position: absolute;
+  right: -45%;
+  top: -35%;
+  width: 100%; /* Adjust width to make the oval appear */
+  height: 200%;
+  background-color: #ffc107; /* The yellow color */
+  clip-path: ellipse(50% 50% at 50% 50%); /* Oval shape at the right */
+  z-index: 5; /* Below the image, above the main hero-main-area */
+}
+
+/* IMAGE CONTAINER */
+.hero-image-container {
+  position: absolute;
+  right: -50px; /* Adjust position to fine-tune image placement */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 900px; /* Fixed width for the image */
+  height: 800px; /* Fixed height for the image */
+  overflow: hidden; /* Hide parts of the image that exceed its container */
+  z-index: 10; /* Above the yellow background */
+  display: flex;
+  align-items: flex-end; /* Align image to the bottom of its container */
+  justify-content: center;
+}
+
+.hero-image-container img {
+  width: 100%; /* Make image fill its container */
+  height: 125%;
+  object-fit: cover; /* Cover the container, cropping as needed */
+   /* Apply oval clip-path to the image itself */
+}

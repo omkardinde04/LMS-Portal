@@ -1,0 +1,139 @@
+.login-page {
+    display: flex;
+    justify-content: center;   /* horizontal center */
+    align-items: center;       /* vertical center */
+    background-color: #f7e8d896; /* softer background */
+    height: 100vh;             /* full viewport height */
+    width: 100%;
+    position:fixed;
+
+    clip-path: ellipse(100% 100% at 50% 100%);
+    z-index: 10000;
+}
+
+.login-card {
+    position: relative;
+    top:-50px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: left;
+    
+}
+
+
+/* Title + Subtitle */
+.login-title {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+    color: #1a1a1a;
+}
+.login-subtitle {
+    font-size: 14px;
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    color: #333;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* Forgot Password */
+.forgot-link {
+    font-size: 12px;
+    color: #3b82f6;
+    text-decoration: none;
+    display: flex;
+    justify-content: right;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+.loginBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffc107;
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.loginBtn:hover {
+    background-color: #f9cb3f;
+}
+
+/* Signup text */
+.signup-text {
+    display: flex;
+    width:100%;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #333;
+    justify-content: space-between;
+}
+
+.signup-text a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+.forget-and-checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.checkbox   {
+    display: flex;
+    gap: 2px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.checkbox input[type="checkbox"] {
+  accent-color: rgb(255, 157, 0);
+  
+}

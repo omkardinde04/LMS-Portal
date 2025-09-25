@@ -1,0 +1,10 @@
+.feature-text-block  {
+  font-size: 2.0em;
+  color: #000000;
+  padding: 20px 20px;
+}
+
+.feature-card{
+  display: flex;
+  justify-content: center;
+}
