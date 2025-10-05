@@ -1,0 +1,959 @@
+.student-home-root {
+    background: #fff;
+    min-height: 100vh;
+    padding: 32px 32px 32px 32px;
+    font-family: 'Poppins', 'Inter', Arial, sans-serif;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.home-container {
+    overflow-y: auto;
+    max-height: 100vh;
+    padding: 28px 32px 32px 32px;
+    font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+    background: #fff;
+}
+
+.home-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    animation: fadeIn 0.7s;
+}
+
+.home-greeting {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.home-greeting span {
+    color: #ffc107;
+}
+
+.home-searchbar input {
+    border: none;
+    background: #fffde7;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    outline: none;
+    transition: box-shadow 0.18s;
+}
+
+.home-searchbar input:focus {
+    box-shadow: 0 4px 16px rgba(255, 193, 7, 0.13);
+}
+
+/* Cards Row */
+.home-cards-row {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.home-stat-card {
+    flex: 1 1 220px;
+    min-width: 220px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 24px 28px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    animation: slideUp 0.7s;
+}
+
+.home-stat-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+    transform: scale(1.04) translateY(-2px);
+}
+
+.stat-card-icon {
+    font-size: 2.3rem;
+    background: #fffde7;
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-card-label {
+    font-size: 1.05rem;
+    color: #000;
+    font-weight: 600;
+}
+
+.stat-card-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #000;
+}
+
+/* Row 2: Statistics + Activity */
+.home-row2 {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.home-stats-card,
+.home-activity-card {
+    flex: 1 1 340px;
+    min-width: 280px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 24px 22px 18px 22px;
+    animation: fadeIn 0.7s;
+}
+
+.home-section-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 16px;
+}
+
+.donut-chart-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.donut-center-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #000;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.donut-center-label span {
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+/* Row 3: Calendar + Notice Board */
+.home-row3 {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.home-calendar-card,
+.home-notice-card {
+    flex: 1 1 340px;
+    min-width: 280px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 24px 22px 18px 22px;
+    animation: fadeIn 0.7s;
+}
+
+/* === Calendar Card === */
+.home-calendar-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.home-calendar-card .home-section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #000;
+}
+
+/* === React Calendar === */
+.react-calendar {
+    width: 100%;
+    background: #fffbe6;
+    border: none;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.react-calendar__navigation button {
+    color: #000;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.react-calendar__navigation button:hover {
+    background: #ffe082;
+}
+
+/* Weekdays header */
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 13px;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    padding: 8px 0;
+}
+
+/* Day cells */
+.react-calendar__tile {
+    background: #f9f9f9;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px 0;
+    margin: 2px;
+    font-size: 14px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+    background: #fff3cd;
+    transform: scale(1.03);
+}
+
+/* Today */
+.react-calendar__tile--now {
+    background: #fff176 !important;
+    font-weight: 700;
+    color: #000;
+}
+
+/* Selected date */
+.react-calendar__tile--active {
+    background: #ffc107 !important;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Dots for events */
+.calendar-dot-row {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 4px;
+}
+
+.calendar-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.calendar-dot-upcoming {
+    background-color: #ffc107;
+}
+
+.calendar-dot-due {
+    background-color: #f44336;
+}
+
+.calendar-dot-holiday {
+    background-color: #4caf50;
+}
+
+.calendar-dot-completed {
+    background-color: #2196f3;
+}
+
+/* === Event list below the calendar === */
+.calendar-events-list {
+    background: #fff;
+    border-radius: 12px;
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid #f0f0f0;
+}
+
+.calendar-event-row {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    font-size: 14px;
+}
+
+.calendar-event-row:hover {
+    background: #fff9c4;
+}
+
+.calendar-event-row span:first-child {
+    margin-right: 10px;
+}
+
+.calendar-event-none {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Row 4: Grades Table */
+.home-grades-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 24px 22px 18px 22px;
+    margin-bottom: 32px;
+    animation: fadeIn 0.7s;
+}
+
+.grades-table-scroll {
+    overflow-x: auto;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+.grades-table th {
+    background: #ffc107;
+    color: #000;
+    font-weight: 700;
+    padding: 14px 14px;
+    border-radius: 8px 8px 0 0;
+    text-align: left;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.grades-table td {
+    background: #fff;
+    color: #111;
+    padding: 13px 14px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 1.04rem;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.grades-table tr:nth-child(even) td {
+    background: #fffde7;
+}
+
+.grade-badge {
+    display: inline-block;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 4px 14px;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+}
+
+.grade-badge[style*="#ffc107"] {
+    color: #000;
+}
+
+.status-badge {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 4px 12px;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.status-excellent {
+    background: #4caf50;
+}
+
+.status-average {
+    background: #ffc107;
+    color: #000;
+}
+
+.status-needsimprovement {
+    background: #ff5252;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-fadein {
+    animation: fadeIn 0.7s;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+
+    .home-cards-row,
+    .home-row2,
+    .home-row3 {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .home-stat-card,
+    .home-stats-card,
+    .home-activity-card,
+    .home-calendar-card,
+    .home-notice-card {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .home-container {
+        padding: 16px 2vw 18px 2vw;
+    }
+
+    .activities-calendar {
+        gap: 12px;
+    }
+
+    .grades-table-card {
+        padding: 8px 2px 6px 2px;
+    }
+}
+
+@media (max-width: 700px) {
+    .student-home-root {
+        padding: 12px 2vw 18px 2vw;
+    }
+
+    .home-topbar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .home-section-title {
+        font-size: 1rem;
+    }
+
+    .grades-table th,
+    .grades-table td {
+        font-size: 0.97rem;
+        padding: 7px 4px;
+    }
+}
+
+/* === ROOT CONTAINER === */
+.home-container {
+    overflow-y: auto;
+    max-height: 100vh;
+    padding: 28px 32px 32px 32px;
+    font-family: "Poppins", "Roboto", Arial, sans-serif;
+    background: #fff;
+    color: #000;
+}
+
+.home-section {
+    margin-bottom: 36px;
+}
+
+.home-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 24px 22px 22px 22px;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.7s;
+}
+
+.home-section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.home-section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #000;
+}
+
+/* === CALENDAR === */
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-nav-btn {
+    background: #fff8e1;
+    border: 1px solid #ffd54f;
+    border-radius: 6px;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-nav-btn:hover {
+    background: #ffc107;
+}
+
+.calendar-nav-label {
+    font-weight: 600;
+    color: #000;
+    font-size: 1rem;
+}
+
+/* === GRID LAYOUT === */
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    position: relative;
+    overflow: visible !important;
+    z-index: 0;
+}
+
+.calendar-grid-header,
+.calendar-grid-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-grid-header-cell {
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    padding: 8px 0;
+    border-bottom: 2px solid #fff3cd;
+}
+
+.calendar-grid-cell {
+    min-height: 70px;
+    text-align: center;
+    padding: 8px;
+    position: relative;
+    border-radius: 10px;
+    background: #fafafa;
+    margin: 2px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    overflow: visible !important;
+    z-index: 1;
+}
+
+.calendar-grid-day:hover {
+    background: #fff9c4;
+    transform: scale(1.03);
+}
+
+.calendar-today {
+    background: #fff176 !important;
+    border: 1px solid #ffc107;
+    font-weight: 700;
+}
+
+.calendar-selected {
+    background: #ffc107 !important;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 0 2px #fffde7;
+}
+
+.calendar-grid-empty {
+    background: transparent;
+    pointer-events: none;
+}
+
+/* === EVENT DOTS === */
+.calendar-event-dots {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 4px;
+}
+
+.calendar-event-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.calendar-event-dot-upcoming {
+    background-color: #ffc107;
+}
+
+.calendar-event-dot-due {
+    background-color: #f44336;
+}
+
+.calendar-event-dot-completed {
+    background-color: #2196f3;
+}
+
+/* === TOOLTIP === */
+/* === TOOLTIP FIXED VERSION === */
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    position: relative;
+    overflow: visible !important;
+    z-index: 0;
+}
+
+.calendar-grid-cell {
+    min-height: 70px;
+    text-align: center;
+    padding: 8px;
+    position: relative;
+    border-radius: 10px;
+    background: #fafafa;
+    margin: 2px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    overflow: visible !important;
+    z-index: 1;
+}
+
+/* Tooltip bubble */
+.calendar-tooltip {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translate(-50%, 110%);
+    background: #fffef6;
+    color: #000;
+    border: 1px solid #ffd54f;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 10px 12px;
+    width: 200px;
+    z-index: 9999;
+    /* <-- increase z-index to ensure tooltip is always on top */
+    text-align: left;
+    font-size: 0.9rem;
+    pointer-events: none;
+    animation: fadeIn 0.25s ease;
+}
+
+/* Tooltip arrow */
+.calendar-tooltip::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #fffef6 transparent;
+}
+
+.calendar-tooltip-date {
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #ffe082;
+    padding-bottom: 3px;
+}
+
+.calendar-tooltip-event {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 0;
+}
+
+.calendar-tooltip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+
+/* === HEATMAP === */
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10px, 1fr));
+    grid-gap: 2px;
+    background: #fff;
+    border-radius: 12px;
+    margin-top: 16px;
+    padding: 10px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.heatmap-cell {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    transition: transform 0.2s ease;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+.legend-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+}
+
+.legend-label {
+    color: #000;
+    font-weight: 500;
+}
+
+/* === ANNOUNCEMENTS === */
+.announcements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.announcement-card {
+    background: #fffde7;
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.announcement-card:hover {
+    background: #fff9c4;
+    transform: scale(1.02);
+}
+
+.announcement-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.announcement-faculty {
+    font-weight: 600;
+}
+
+.announcement-date {
+    font-size: 0.8rem;
+}
+
+.announcement-dismiss {
+    cursor: pointer;
+    font-weight: 700;
+    color: #f44336;
+    margin-left: 8px;
+}
+
+.announcement-text {
+    color: #111;
+    font-size: 0.95rem;
+}
+
+.announcement-showmore {
+    color: #1976d2;
+    font-weight: 500;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.announcement-empty {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+/* === GRADES TABLE === */
+.grades-table-card {
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+.grades-table th {
+    background: #ffc107;
+    color: #000;
+    font-weight: 700;
+    padding: 12px 14px;
+    border-radius: 8px 8px 0 0;
+    text-align: left;
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+.grades-table td {
+    background: #fff;
+    color: #111;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.grades-table tr:nth-child(even) td {
+    background: #fffde7;
+}
+
+/* Progress bars inside table */
+.grades-progress-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.grades-progress-bar-bg {
+    flex: 1;
+    height: 8px;
+    border-radius: 6px;
+    background: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.grades-progress-bar {
+    height: 8px;
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.4s ease;
+}
+
+.grades-status-tag {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #000;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1000px) {
+    .calendar-grid-cell {
+        min-height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        padding: 20px;
+    }
+
+    .calendar-tooltip {
+        width: 150px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .calendar-grid-header-cell,
+    .calendar-grid-cell {
+        font-size: 0.8rem;
+    }
+
+    .home-section-title {
+        font-size: 1.1rem;
+    }
+}

@@ -1,7 +1,9 @@
 import '../Login/css/LoginCard.css'
+import { useNavigate } from 'react-router-dom';
 function LoginCard(){
+    const navigate = useNavigate();
     return(
-
+ 
         <>  
             <div className="login-page">
                 <div className="oval-bg">
@@ -32,7 +34,7 @@ function LoginCard(){
                         </div>
                         
 
-                        <button type="submit" className="loginBtn">Sign In</button>
+                        <button type="submit" className="loginBtn" onClick={() => navigate("/home")}>Sign In</button>
                     </form>
                     <p className="signup-text">
                         Don't have an account? <a href="/">Create an account</a>

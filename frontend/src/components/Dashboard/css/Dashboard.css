@@ -1,0 +1,19 @@
+.app-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Keep sidebar fixed width */
+.sidebar {
+  flex-shrink: 0;
+}
+
+/* Content area beside sidebar */
+.main-content {
+  flex: 1;
+  margin-left: 240px; /* same as sidebar width */
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
