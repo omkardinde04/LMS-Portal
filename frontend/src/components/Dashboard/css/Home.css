@@ -574,7 +574,8 @@
     margin-top: 10px;
     position: relative;
     overflow: visible !important;
-    z-index: 0;
+    z-index: 10;
+    /* increase stacking context */
 }
 
 .calendar-grid-header,
@@ -602,7 +603,8 @@
     transition: all 0.2s ease;
     cursor: pointer;
     overflow: visible !important;
-    z-index: 1;
+    z-index: 20;
+    /* ensure cell is above grid */
 }
 
 .calendar-grid-day:hover {
@@ -663,7 +665,8 @@
     margin-top: 10px;
     position: relative;
     overflow: visible !important;
-    z-index: 0;
+    z-index: 10;
+    /* increase stacking context */
 }
 
 .calendar-grid-cell {
@@ -677,40 +680,46 @@
     transition: all 0.2s ease;
     cursor: pointer;
     overflow: visible !important;
-    z-index: 1;
+    z-index: 20;
+    /* ensure cell is above grid */
 }
 
 /* Tooltip bubble */
 .calendar-tooltip {
-    position: absolute;
-    bottom: -10px;
+    position: fixed;
+    /* changed from absolute to fixed */
     left: 50%;
-    transform: translate(-50%, 110%);
+    top: 60%;
+    /* adjust as needed for your layout */
+    transform: translate(-50%, 0);
     background: #fffef6;
     color: #000;
     border: 1px solid #ffd54f;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     padding: 10px 12px;
-    width: 200px;
-    z-index: 9999;
-    /* <-- increase z-index to ensure tooltip is always on top */
+    width: 220px;
+    z-index: 99999;
+    /* ensure tooltip is always on top */
     text-align: left;
     font-size: 0.9rem;
     pointer-events: none;
     animation: fadeIn 0.25s ease;
+    /* Optional: add a little margin from the tile */
+    margin-top: 8px;
 }
 
 /* Tooltip arrow */
 .calendar-tooltip::before {
     content: "";
     position: absolute;
-    top: -6px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
     border-width: 6px;
     border-style: solid;
     border-color: transparent transparent #fffef6 transparent;
+    z-index: 100000;
 }
 
 .calendar-tooltip-date {
