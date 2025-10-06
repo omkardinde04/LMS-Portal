@@ -1,118 +1,61 @@
+
 import React, { useEffect, useState } from "react";
-import { gapi } from "gapi-script";
+import { useGoogleLogin, googleLogout } from "@react-oauth/google";
 import "../Meet/VirtualMeet.css";
 
-const CLIENT_ID = "770586536781-f159t1m2p5olmb2u3d1h1n5jle49q7ge.apps.googleusercontent.com";
-const API_KEY =  "AIzaSyC1UIx_iFQL8JgtTwwL1UqGLOKVHF0lc0s";
-const DISCOVERY_DOCS = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-];
-const SCOPES = "https://www.googleapis.com/auth/calendar";
 
 export default function VirtualMeet() {
+    const CLIENT_ID = "770586536781-f159t1m2p5olmb2u3d1h1n5jle49q7ge.apps.googleusercontent.com";
+    const SCOPES = "https://www.googleapis.com/auth/calendar";
+
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const [accessToken, setAccessToken] = useState("");
     const [meetLink, setMeetLink] = useState("");
     const [meetings, setMeetings] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [apiLoading, setApiLoading] = useState(false);
 
+    // Fetch meetings if already signed in (e.g. after refresh)
     useEffect(() => {
-        const initClient = async () => {
-            try {
-                await new Promise((resolve) => gapi.load("client:auth2", resolve));
-
-                await gapi.client.init({
-                    apiKey: API_KEY,
-                    clientId: CLIENT_ID,
-                    discoveryDocs: DISCOVERY_DOCS,
-                    scope: SCOPES,
-                });
-
-                const auth = gapi.auth2.getAuthInstance();
-                const signedIn = auth.isSignedIn.get();
-                setIsSignedIn(signedIn);
-
-                auth.isSignedIn.listen((status) => {
-                    setIsSignedIn(status);
-                    if (status) {
-                        // Wait for token before fetching
-                        waitForTokenAndFetch();
-                    } else {
-                        setMeetings([]);
-                        setMeetLink("");
-                    }
-                });
-
-                if (signedIn) {
-                    waitForTokenAndFetch();
-                }
-            } catch (error) {
-                console.error("GAPI initialization error:", error);
-                alert("Failed to initialize Google API. Check console for details.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        const waitForTokenAndFetch = async () => {
-            const auth = gapi.auth2.getAuthInstance();
-            let tokenResponse = auth.currentUser .get()?.getAuthResponse();
-            let attempts = 0;
-            while (!tokenResponse && attempts < 50) { // Poll up to 5 seconds
-                await new Promise(resolve => setTimeout(resolve, 100));
-                tokenResponse = auth.currentUser .get()?.getAuthResponse();
-                attempts++;
-            }
-            if (tokenResponse) {
-                await fetchMeetings();
-            } else {
-                console.error("Token not available after sign-in");
-                alert("Sign-in succeeded, but authentication token failed to load. Try refreshing the page.");
-            }
-        };
-
-        initClient();
-    }, []);
-
-   const handleAuthClick = async () => {
-  try {
-    setApiLoading(true);
-    const auth = gapi.auth2.getAuthInstance();
-
-    const user = await auth.signIn(); // Popup opens here
-    const token = user.getAuthResponse(true).access_token;
-
-    if (!token) {
-      throw new Error("No access token received");
-    }
-
-    setIsSignedIn(true);
-    await fetchMeetings();
-  } catch (error) {
-    console.error("Sign-in error:", error);
-    if (error.error === "popup_closed_by_user") {
-      alert("You closed the Google sign-in popup before finishing login.");
-    } else {
-      alert("Sign-in failed: " + (error.error || error.message));
-    }
-  } finally {
-    setApiLoading(false);
-  }
-};
-
-
-    const handleSignOut = async () => {
-        try {
-            await gapi.auth2.getAuthInstance().signOut();
-            setIsSignedIn(false);
-            setMeetings([]);
-            setMeetLink("");
-        } catch (error) {
-            console.error("Sign-out error:", error);
+        if (accessToken) {
+            fetchMeetings();
         }
+        // eslint-disable-next-line
+    }, [accessToken]);
+
+
+    // Google OAuth login handler using useGoogleLogin
+    const login = useGoogleLogin({
+        onSuccess: (tokenResponse) => {
+            // tokenResponse contains access_token
+            if (tokenResponse && tokenResponse.access_token) {
+                setAccessToken(tokenResponse.access_token);
+                setIsSignedIn(true);
+            } else {
+                alert("Google sign-in failed. No access token received.");
+            }
+        },
+        onError: () => {
+            alert("Google sign-in failed. Please try again.");
+        },
+        scope: SCOPES,
+        flow: "implicit", // or "auth-code" if you have backend
+    });
+
+    const handleSignOut = () => {
+        googleLogout();
+        setIsSignedIn(false);
+        setAccessToken("");
+        setMeetings([]);
+        setMeetLink("");
     };
 
     const createMeet = async () => {
+        console.log("Creating Meet with access token:", accessToken);
+        if (!accessToken) {
+            alert("You must be signed in to create a meeting.");
+            return;
+        }
         try {
             setApiLoading(true);
             const now = new Date();
@@ -132,22 +75,27 @@ export default function VirtualMeet() {
                 },
                 conferenceData: {
                     createRequest: {
-                        requestId: `learnify-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique
+                        requestId: `learnify-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                         conferenceSolutionKey: { type: "hangoutsMeet" },
                     },
                 },
             };
 
-            const response = await gapi.client.calendar.events.insert({
-                calendarId: "primary",
-                resource: event,
-                conferenceDataVersion: 1,
-            });
-
-            const meet = response.result.hangoutLink;
+            const response = await fetch(
+                "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(event),
+                }
+            );
+            const data = await response.json();
+            const meet = data.hangoutLink;
             if (meet) {
                 setMeetLink(meet);
-                // Auto-refresh list
                 setTimeout(fetchMeetings, 2000);
                 alert("Meeting created successfully! Check the list or join below.");
             } else {
@@ -155,46 +103,34 @@ export default function VirtualMeet() {
             }
         } catch (error) {
             console.error("Create Meet error:", error);
-            const msg = error.result?.error?.message || error.message || "Unknown error";
-            alert(`Could not create Meet: ${msg}. Ensure you granted calendar permissions.`);
+            alert("Could not create Meet. Ensure you granted calendar permissions.");
         } finally {
             setApiLoading(false);
         }
     };
 
-    const fetchMeetings = async (retryCount = 0) => {
+    const fetchMeetings = async () => {
+        if (!accessToken) return;
         try {
             setApiLoading(true);
-            const tenMinsAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString(); // Include recent events
-            const response = await gapi.client.calendar.events.list({
-                calendarId: "primary",
-                timeMin: tenMinsAgo,
-                showDeleted: false,
-                singleEvents: true,
-                orderBy: "startTime",
+            const tenMinsAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+            const url = `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${encodeURIComponent(tenMinsAgo)}&showDeleted=false&singleEvents=true&orderBy=startTime&conferenceDataVersion=1`;
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
             });
-
-            const events = response.result.items?.filter(
+            const data = await response.json();
+            const events = data.items?.filter(
                 (event) => event.conferenceData && (event.conferenceData.entryPoints || event.hangoutLink)
             ) || [];
-
-            // Filter to future/upcoming only for display
-            const upcoming = events.filter(event => 
+            const upcoming = events.filter(event =>
                 new Date(event.start.dateTime || event.start.date) > new Date()
             );
-
             setMeetings(upcoming);
         } catch (error) {
             console.error("Fetch meetings error:", error);
-            const msg = error.result?.error?.message || error.message || "Unknown error";
-            if (msg.includes("401") || msg.includes("auth") || retryCount < 2) {
-                // Retry on auth errors
-                console.log(`Retrying fetch... (attempt ${retryCount + 1})`);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await fetchMeetings(retryCount + 1);
-            } else {
-                alert(`Failed to fetch meetings: ${msg}. Try signing out/in or check console.`);
-            }
+            alert("Failed to fetch meetings. Try signing out/in or check console.");
         } finally {
             setApiLoading(false);
         }
@@ -203,7 +139,7 @@ export default function VirtualMeet() {
     if (loading) {
         return (
             <div className="virtual-meet-container">
-                <p>Loading Google API client...</p>
+                <p>Loading...</p>
             </div>
         );
     }
@@ -213,8 +149,8 @@ export default function VirtualMeet() {
             <h2>Virtual Meet</h2>
 
             {!isSignedIn ? (
-                <button onClick={handleAuthClick} disabled={apiLoading} className="meet-btn">
-                    {apiLoading ? "Signing in..." : "Sign in with Google"}
+                <button onClick={() => login()} className="meet-btn" style={{ width: 300 }}>
+                    Sign in with Google
                 </button>
             ) : (
                 <>
@@ -222,7 +158,7 @@ export default function VirtualMeet() {
                         <button onClick={createMeet} disabled={apiLoading} className="meet-btn">
                             {apiLoading ? "Creating..." : "Create Meet"}
                         </button>
-                        <button onClick={() => fetchMeetings()} disabled={apiLoading} className="meet-btn">
+                        <button onClick={fetchMeetings} disabled={apiLoading} className="meet-btn">
                             {apiLoading ? "Refreshing..." : "Refresh Meetings"}
                         </button>
                         <button onClick={handleSignOut} className="signout-btn">
@@ -271,6 +207,7 @@ export default function VirtualMeet() {
                             </ul>
                         )}
                     </div>
+
                 </>
             )}
         </div>
