@@ -27,11 +27,11 @@ export default function Sidebar() {
           <span className="label">Courses</span>
         </NavLink>
 
-        <NavLink to="/calendar" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+        <NavLink to="/meet" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
           <FaCalendarAlt className="icon" />
-          <span className="label">Calendar</span>
+          <span className="label">Virtual Meet</span>
         </NavLink>
-
+ 
         <NavLink to="/assignments" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
           <FaClipboardList className="icon" />
           <span className="label">Assignments</span>

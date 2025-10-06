@@ -1,0 +1,66 @@
+.virtual-meet-container {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.meet-btn, .signout-btn {
+  background-color: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.meet-btn:hover { background-color: #155ab6; }
+.signout-btn { background-color: #e84545; }
+.signout-btn:hover { background-color: #c72e2e; }
+
+.meet-frame {
+  margin-top: 20px;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.meet-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.meeting-list {
+  margin-top: 2rem;
+  text-align: left;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.meeting-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.meeting-list li {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.meeting-list a {
+  color: #1a73e8;
+  text-decoration: none;
+  font-weight: 500;
+}
